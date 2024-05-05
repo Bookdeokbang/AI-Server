@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException
 from typing import List
 from models import AIModel
 from bert import bert_classification
-from roberta import roberta_classification
+from roberta import roberta_classification, create_ten_sentence, choice_one_sentence
 from albert import albert_classification
 from google.cloud import vision
 from models import OCRResponse
@@ -29,6 +29,12 @@ async def predict_endpoint(sentences: List[str], model: AIModel):
 
         response[sentence] = predicted_classes
     return response
+
+@predict_router.post("/generate")
+async def generate_sentence(label: str):
+    lists = create_ten_sentence(label)
+    return choice_one_sentence(lists, label)
+
 
 @ocr_router.post("/ocr", response_model=OCRResponse)
 async def detect_text(image_url: str):
