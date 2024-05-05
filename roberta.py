@@ -32,3 +32,4 @@ def roberta_classification(sentences):
         predicted_label = [label_classes[idx] for idx in predicted_classes]
 
     return probs.tolist(), predicted_label
+
