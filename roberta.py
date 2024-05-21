@@ -8,7 +8,7 @@ import os
 import pandas as pd
 
 label_classes = load_labels_from_json('data/label.json')
-folder_path = ''
+folder_path = 'data/pos'
 
 def choice_roberta_model():
     model_path = "model/RoBERTa.pth"
