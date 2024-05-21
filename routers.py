@@ -72,9 +72,10 @@ async def pos(text: str):
     pos_pipeline = pipeline("token-classification", model="QCRI/bert-base-multilingual-cased-pos-english")
     pos_results = pos_pipeline(text)
 
-    response = []
+    response = {}
     for v in pos_results:
-        if v['entity'] in pos_tags.keys():
-            entity = pos_tags[v['entity']]
-        response.append([v['word'],entity])
+        word = v['word']
+        entity = pos_tags.get(v['entity'], "Unknown")
+        response[word] = entity
+
     return response
